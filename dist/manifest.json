@@ -1,5 +1,10 @@
 {
+  "short_name": "Mandelbrot",
   "name": "WebGL Mandelbrot Viewer",
+  "start_url": "/index.js",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "display": "standalone",
   "icons": [
     {
       "src": "\/android-icon-36x36.png",
