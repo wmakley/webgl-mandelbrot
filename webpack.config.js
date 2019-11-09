@@ -1,4 +1,5 @@
 const path = require("path");
+const { CheckerPlugin } = require('awesome-typescript-loader')
 
 module.exports = {
   entry: "./src/Main.ts",
@@ -20,6 +21,10 @@ module.exports = {
       { test: /\.glsl$/, loader: "webpack-glsl-loader" }
     ]
   },
+
+  plugins: [
+    new CheckerPlugin()
+  ],
 
   devServer: {
     contentBase: path.resolve(__dirname, "dist"),

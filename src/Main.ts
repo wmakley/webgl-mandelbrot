@@ -1,4 +1,4 @@
-import * as ShaderSource from './Shaders.js';
+import * as ShaderSource from './Shaders';
 import ShaderProgram from './ShaderProgram';
 
 
@@ -14,14 +14,16 @@ function SetupGL(gl: WebGLRenderingContext) {
   const program = new ShaderProgram(gl);
   program.addShader(ShaderSource.VertexPassthrough, gl.VERTEX_SHADER);
   program.addShader(ShaderSource.FragmentTest, gl.FRAGMENT_SHADER);
-  program.link();
+  if (!program.link()) {
+    throw new Error("Unable to link shader program");
+  }
   program.use();
 
   const positionAttributeLocation = program.getAttribLocation("position");
-  var positionBuffer = gl.createBuffer();
+  const positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   // three 2d points
-  var positions = [
+  const positions = [
     0, 0,
     0, 0.5,
     0.7, 0,
@@ -38,11 +40,11 @@ function SetupGL(gl: WebGLRenderingContext) {
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
   // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
-  var size = 2;          // 2 components per iteration
-  var type = gl.FLOAT;   // the data is 32bit floats
-  var normalize = false; // don't normalize the data
-  var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
-  var offset = 0;        // start at the beginning of the buffer
+  const size = 2;          // 2 components per iteration
+  const type = gl.FLOAT;   // the data is 32bit floats
+  const normalize = false; // don't normalize the data
+  const stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
+  const offset = 0;        // start at the beginning of the buffer
   gl.vertexAttribPointer(
     positionAttributeLocation, size, type, normalize, stride, offset);
 }
@@ -51,9 +53,9 @@ function SetupGL(gl: WebGLRenderingContext) {
 function RenderScene(gl: WebGLRenderingContext) {
   gl.clear(gl.COLOR_BUFFER_BIT);
 
-  var primitiveType = gl.TRIANGLES;
-  var offset = 0;
-  var count = 3;
+  const primitiveType = gl.TRIANGLES;
+  const offset = 0;
+  const count = 3;
   gl.drawArrays(primitiveType, offset, count);
 }
 

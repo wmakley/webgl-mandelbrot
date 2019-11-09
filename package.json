@@ -6,8 +6,8 @@
   "author": "William Manahan-Makley",
   "license": "MIT",
   "scripts": {
-    "build": "webpack",
-    "dev-server": "webpack-dev-server"
+    "build": "webpack --mode=production",
+    "dev-server": "webpack-dev-server --mode=development"
   },
   "dependencies": {
     "awesome-typescript-loader": "^5.2.1",
