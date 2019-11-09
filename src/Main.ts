@@ -57,38 +57,3 @@ function RenderScene(gl: WebGLRenderingContext) {
   const count = 3;
   gl.drawArrays(primitiveType, offset, count);
 }
-
-
-// function CreateShader(gl: WebGLRenderingContext, type: number, source: string) : WebGLShader {
-//   const shader = gl.createShader(type);
-//   gl.shaderSource(shader, source);
-//   gl.compileShader(shader);
-//   const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
-//   if (success) {
-//     return shader;
-//   }
-
-//   console.log(gl.getShaderInfoLog(shader));
-//   gl.deleteShader(shader);
-//   throw 'shader compile error';
-// }
-
-// function CreateProgram(
-//   gl: WebGLRenderingContext,
-//   vertexShader: WebGLShader,
-//   fragmentShader: WebGLShader)
-//   : WebGLProgram
-// {
-//   const program = gl.createProgram();
-//   gl.attachShader(program, vertexShader);
-//   gl.attachShader(program, fragmentShader);
-//   gl.linkProgram(program);
-//   const success = gl.getProgramParameter(program, gl.LINK_STATUS);
-//   if (success) {
-//     return program;
-//   }
-
-//   console.log(gl.getProgramInfoLog(program));
-//   gl.deleteProgram(program);
-//   throw 'program link error';
-// }

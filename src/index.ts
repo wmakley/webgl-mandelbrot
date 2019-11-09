@@ -1,13 +1,14 @@
-import Main from './Main'
+import Main from './Main';
 
-document.addEventListener('DOMContentLoaded', function (event) {
+document.addEventListener('DOMContentLoaded', function () {
   const canvas = <HTMLCanvasElement>document.getElementById('canvas');
 
   // Try to get the rendering context
   const gl = canvas.getContext("webgl");
   if (!gl) {
-    alert("Sorry, WebGL is not available in your browser!");
-    return;
+    const msg = "Sorry, WebGL is not available in your browser!";
+    alert(msg);
+    throw new Error(msg);
   }
 
   // Enable retina support
