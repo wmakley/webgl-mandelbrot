@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   // Enable retina support
   if (typeof window.devicePixelRatio === 'number') {
-    canvas.style.width = canvas.clientWidth.toString() + 'px';
-    canvas.style.height = canvas.clientHeight.toString() + 'px';
+    canvas.style.width = canvas.width.toString() + 'px';
+    canvas.style.height = canvas.height.toString() + 'px';
     canvas.width = canvas.clientWidth * window.devicePixelRatio;
     canvas.height = canvas.clientHeight * window.devicePixelRatio;
   }
