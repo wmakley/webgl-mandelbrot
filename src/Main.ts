@@ -9,13 +9,12 @@ export default function Main(gl: WebGLRenderingContext) : void {
 
 
 function SetupGL(gl: WebGLRenderingContext) {
-  // const vertexShader = CreateShader(gl, gl.VERTEX_SHADER, ShaderSource.VertexPassthrough);
-  // const fragmentShader = CreateShader(gl, gl.FRAGMENT_SHADER, ShaderSource.FragmentTest);
   const program = new ShaderProgram(gl);
+  console.log("Vertex Shader", ShaderSource.VertexPassthrough);
   program.addShader(ShaderSource.VertexPassthrough, gl.VERTEX_SHADER);
   program.addShader(ShaderSource.FragmentTest, gl.FRAGMENT_SHADER);
   if (!program.link()) {
-    throw new Error("Unable to link shader program");
+    throw new Error("Unable to link shader program!");
   }
   program.use();
 

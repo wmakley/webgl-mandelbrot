@@ -4,8 +4,10 @@ export default class ShaderProgram {
   private shaders: Array<Shader>;
   public program: WebGLProgram;
   public isLinked: boolean;
+  private readonly gl: WebGLRenderingContext;
 
-  constructor(readonly gl: WebGLRenderingContext) {
+  constructor(gl: WebGLRenderingContext) {
+    this.gl = gl;
     this.shaders = [];
     this.isLinked = false;
   }
@@ -13,7 +15,7 @@ export default class ShaderProgram {
   addShader(source: string, shaderType: number): void {
     const shader = new Shader(source, shaderType);
     if (!shader.compile(this.gl)) {
-      throw 'unable to compile shader';
+      throw new Error('Unable to compile shader!');
     }
     this.shaders.push(shader);
   }
