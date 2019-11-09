@@ -22,9 +22,13 @@ function SetupGL(gl: WebGLRenderingContext) {
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   // three 2d points
   const positions = [
-    0, 0,
-    0, 0.5,
-    0.7, 0,
+    1, 1,
+    -1, 1,
+    -1, -1,
+
+    1, 1,
+    1, -1,
+    -1, -1
   ];
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
   gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
@@ -53,6 +57,6 @@ function RenderScene(gl: WebGLRenderingContext) {
 
   const primitiveType = gl.TRIANGLES;
   const offset = 0;
-  const count = 3;
+  const count = 6;
   gl.drawArrays(primitiveType, offset, count);
 }
