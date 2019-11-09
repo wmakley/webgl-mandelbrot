@@ -10,7 +10,6 @@ export default function Main(gl: WebGLRenderingContext) : void {
 
 function SetupGL(gl: WebGLRenderingContext) {
   const program = new ShaderProgram(gl);
-  console.log("Vertex Shader", ShaderSource.VertexPassthrough);
   program.addShader(ShaderSource.VertexPassthrough, gl.VERTEX_SHADER);
   program.addShader(ShaderSource.FragmentTest, gl.FRAGMENT_SHADER);
   if (!program.link()) {
