@@ -10,8 +10,8 @@ export default function Main(gl: WebGLRenderingContext) : void {
 
 function SetupGL(gl: WebGLRenderingContext) {
   const program = new ShaderProgram(gl);
-  program.addShader(ShaderSource.VertexPassthrough, gl.VERTEX_SHADER);
-  program.addShader(ShaderSource.FragmentTest, gl.FRAGMENT_SHADER);
+  program.addShader("VertexPassthrough.glsl", ShaderSource.VertexPassthrough, gl.VERTEX_SHADER);
+  program.addShader("Fragment.glsl", ShaderSource.Fragment, gl.FRAGMENT_SHADER);
   if (!program.link()) {
     throw new Error("Unable to link shader program!");
   }
@@ -49,6 +49,18 @@ function SetupGL(gl: WebGLRenderingContext) {
   const offset = 0;        // start at the beginning of the buffer
   gl.vertexAttribPointer(
     positionAttributeLocation, size, type, normalize, stride, offset);
+
+  const graphSizeUniform = program.getUniformLocation("graphSize");
+  const screenSizeUniform = program.getUniformLocation("screenSize");
+  const translateUniform = program.getUniformLocation("translate");
+  const scaleUniform = program.getUniformLocation("scale");
+  const iterUniform = program.getUniformLocation("iter");
+
+  gl.uniform2f(graphSizeUniform, 2.6, 2.3);
+  gl.uniform2f(screenSizeUniform, gl.canvas.width, gl.canvas.height);
+  gl.uniform2f(translateUniform, -0.75, 0.0);
+  gl.uniform1f(scaleUniform, 1.0);
+  gl.uniform1i(iterUniform, 1000);
 }
 
 

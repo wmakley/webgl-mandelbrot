@@ -12,8 +12,8 @@ export default class ShaderProgram {
     this.isLinked = false;
   }
 
-  addShader(source: string, shaderType: number): void {
-    const shader = new Shader(source, shaderType);
+  addShader(name: string, source: string, shaderType: number): void {
+    const shader = new Shader(name, source, shaderType);
     if (!shader.compile(this.gl)) {
       throw new Error('Unable to compile shader!');
     }
@@ -48,5 +48,9 @@ export default class ShaderProgram {
 
   getAttribLocation(name: string): number {
     return this.gl.getAttribLocation(this.program, name);
+  }
+
+  getUniformLocation(name: string): WebGLUniformLocation {
+    return this.gl.getUniformLocation(this.program, name);
   }
 }

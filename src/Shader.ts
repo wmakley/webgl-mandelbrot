@@ -1,10 +1,12 @@
 export default class Shader {
+  private readonly name: string
   private readonly source: string;
   private readonly shaderType: number;
   public handle?: WebGLShader;
   isCompiled: boolean;
 
-  constructor(source: string, shaderType: number) {
+  constructor(name: string, source: string, shaderType: number) {
+    this.name = name;
     this.source = source;
     this.shaderType = shaderType;
     this.isCompiled = false;
@@ -22,7 +24,10 @@ export default class Shader {
     if (success) {
       this.isCompiled = true;
     } else {
-      console.log("Shader compilation failed:", gl.getShaderInfoLog(this.handle));
+      console.log(
+        `Failed to compile shader '${this.name}':\n`,
+        gl.getShaderInfoLog(this.handle)
+      );
       gl.deleteShader(this.handle);
       this.handle = undefined;
     }
