@@ -10,16 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
     alert(msg);
     throw new Error(msg);
   }
-
   // Enable retina support
-  // if (typeof window.devicePixelRatio === 'number') {
-  //   canvas.style.width = canvas.width.toString() + 'px';
-  //   canvas.style.height = canvas.height.toString() + 'px';
-  //   canvas.width = canvas.width * window.devicePixelRatio;
-  //   canvas.height = canvas.height * window.devicePixelRatio;
-
-  //   // this.ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-  // }
+  if (typeof window.devicePixelRatio === 'number') {
+    canvas.style.width = canvas.clientWidth.toString() + 'px';
+    canvas.style.height = canvas.clientHeight.toString() + 'px';
+    canvas.width = canvas.clientWidth * window.devicePixelRatio;
+    canvas.height = canvas.clientHeight * window.devicePixelRatio;
+  }
 
   Main(gl);
 });
