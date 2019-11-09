@@ -1,6 +1,6 @@
-import { Shader } from './Shader';
+import Shader from './Shader';
 
-export class ShaderProgram {
+export default class ShaderProgram {
   private shaders: Array<Shader>;
   public program: WebGLProgram;
   public isLinked: boolean;

@@ -1,4 +1,4 @@
-export class Shader {
+export default class Shader {
   public handle: WebGLShader;
   isCompiled: boolean;
 

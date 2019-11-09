@@ -1,19 +1,23 @@
 {
   "name": "webgl-mandelbrot",
-  "version": "1.0.0",
-  "main": "main.js",
+  "version": "0.1.0",
+  "main": "src/Main.ts",
   "repository": "https://github.com/wmakley/webgl-mandelbrot.git",
-  "author": "William Makley",
+  "author": "William Manahan-Makley",
   "license": "MIT",
-  "devDependencies": {
-    "awesome-typescript-loader": "^3.4.1",
-    "typescript": "^2.6.2",
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7",
-    "webpack-glsl-loader": "^1.0.1"
-  },
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server"
+    "dev-server": "webpack-dev-server"
+  },
+  "dependencies": {
+    "awesome-typescript-loader": "^5.2.1",
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-glsl-loader": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "webpack-dev-server": "^3.9.0"
   }
 }

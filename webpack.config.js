@@ -2,13 +2,11 @@ const path = require("path");
 
 module.exports = {
   entry: "./src/Main.ts",
+
   output: {
     filename: "bundle.js",
     path: path.join(__dirname, "dist")
   },
-
-  // Enable sourcemaps for debugging webpack's output.
-  devtool: "source-map",
 
   resolve: {
     // Add '.ts' as resolvable extension.
@@ -16,7 +14,7 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
       { test: /\.glsl$/, loader: "webpack-glsl-loader" }
@@ -24,13 +22,11 @@ module.exports = {
   },
 
   devServer: {
-    contentBase: path.join(__dirname, "static"),
+    contentBase: path.resolve(__dirname, "dist"),
     port: 9000,
-    publicPath: "/dist/",
     overlay: {
       warnings: true,
       errors: true
-    },
-    watchContentBase: true
+    }
   }
 };

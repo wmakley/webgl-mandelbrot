@@ -3,5 +3,5 @@ Thumbs.db
 ._*
 
 node_modules
-dist
+dist/bundle.*
 .vscode
