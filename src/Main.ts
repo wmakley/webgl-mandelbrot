@@ -60,7 +60,7 @@ function SetupGL(gl: WebGLRenderingContext) {
   gl.uniform2f(screenSizeUniform, gl.canvas.width, gl.canvas.height);
   gl.uniform2f(translateUniform, -0.75, 0.0);
   gl.uniform1f(scaleUniform, 1.0);
-  gl.uniform1i(iterUniform, 1000);
+  gl.uniform1i(iterUniform, 50);
 }
 
 
