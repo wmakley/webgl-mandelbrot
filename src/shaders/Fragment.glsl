@@ -11,9 +11,11 @@ void main() {
   // is responsible for setting
   // gl_FragColor = vec4(1, 0, 0.5, 1); // return redish-purple
 
-    // apply scaling factor to the original graph size
-  vec2 scaledGraphSize = vec2(graphSize.x * scale,
-                              graphSize.y * scale);
+  // apply scaling factor to the original graph size
+  vec2 scaledGraphSize = vec2(
+    graphSize.x * scale,
+    graphSize.y * scale
+  );
 
   vec2 z, c;
   // convert our pixel to complex coordinates, given the current graph size and translation

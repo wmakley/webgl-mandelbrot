@@ -1,4 +1,6 @@
-import Main from './Main';
+import Renderer from './Renderer';
+// @ts-ignore
+import Vue from 'vue';
 
 document.addEventListener('DOMContentLoaded', function () {
   const canvas = <HTMLCanvasElement>document.getElementById('canvas');
@@ -10,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     alert(msg);
     throw new Error(msg);
   }
+
   // Enable retina support
   if (typeof window.devicePixelRatio === 'number') {
     canvas.style.width = canvas.width.toString() + 'px';
@@ -18,5 +21,14 @@ document.addEventListener('DOMContentLoaded', function () {
     canvas.height = canvas.clientHeight * window.devicePixelRatio;
   }
 
-  Main(gl);
+  const renderer = new Renderer(gl);
+  renderer.init();
+  renderer.render();
+
+  new Vue({
+    el: '#controls',
+    data: {
+      renderer: renderer
+    }
+  });
 });

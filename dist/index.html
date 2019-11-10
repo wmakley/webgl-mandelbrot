@@ -6,9 +6,12 @@
     <script src="bundle.js"></script>
     <style type="text/css" media="all">
       body {
-        font: 14px monospace;
+        font: 16px monospace;
         background: #000;
         color: #FFF;
+      }
+      #canvas {
+        border: none;
       }
       button {
         padding: 10px;
@@ -17,8 +20,16 @@
         background: #000;
         color: #FFF;
       }
-      #canvas {
+      input {
+        color: #000;
+        background: #FFF;
         border: none;
+        padding: 7px;
+        color: #000;
+        font-size: 14px;
+      }
+      .input-group {
+        margin: 10px;
       }
     </style>
 
@@ -53,5 +64,26 @@
   </head>
   <body>
     <canvas id="canvas" width="640" height="480"></canvas>
+    <div id="controls">
+      <div class="input-group">
+        <label for="zoomX">Zoom X:</label>
+        <input type="number" name="zoomX" id="zoomX" v-model="renderer.translateX" step="0.1">
+      </div>
+
+      <div class="input-group">
+        <label for="zoomY">Zoom Y:</label>
+        <input type="number" name="zoomY" id="zoomY" v-model="renderer.translateY" step="0.1">
+      </div>
+
+      <div class="input-group">
+        <label for="scale">Scale:</label>
+        <input type="number" name="scale" id="scale" v-model="renderer.scale" step="0.1">
+      </div>
+
+      <div class="input-group">
+        <label for="iterations">Iterations:</label>
+        <input type="number" name="iterations" id="iterations" v-model="renderer.iterations" step="10">
+      </div>
+    </div>
   </body>
 </html>

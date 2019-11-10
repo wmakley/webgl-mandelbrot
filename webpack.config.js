@@ -11,14 +11,24 @@ module.exports = {
 
   resolve: {
     // Add '.ts' as resolvable extension.
-    extensions: [".webpack.js", ".web.js", ".ts", ".glsl", ".js"]
+    extensions: [
+      ".ts", ".glsl", ".js", ".vue", ".json"
+    ],
+
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
   },
 
   module: {
     rules: [
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-      { test: /\.glsl$/, loader: "webpack-glsl-loader" }
+      { test: /\.glsl$/, loader: "webpack-glsl-loader" },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      }
     ]
   },
 
