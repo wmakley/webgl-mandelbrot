@@ -47,7 +47,6 @@ export default class Renderer {
   public get scale() { return this._scale; }
   public set scale(input: string | number) {
     this._scale = this.parseUserInput(input);
-    console.log(`set scale ${this.scale}`);
     this.gl.uniform1f(this.scaleUniform, this._scale);
     this.render();
   }
