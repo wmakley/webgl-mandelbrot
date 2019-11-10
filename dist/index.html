@@ -67,22 +67,30 @@
     <div id="controls">
       <div class="input-group">
         <label for="zoomX">Zoom X:</label>
-        <input type="number" name="zoomX" id="zoomX" v-model="renderer.translateX" step="0.1">
+        <input type="number" name="zoomX" id="zoomX"
+               v-model="controller.translateX"
+               v-bind:step="controller.step">
       </div>
 
       <div class="input-group">
         <label for="zoomY">Zoom Y:</label>
-        <input type="number" name="zoomY" id="zoomY" v-model="renderer.translateY" step="0.1">
+        <input type="number" name="zoomY" id="zoomY"
+               v-model="controller.translateY"
+               v-bind:step="controller.step">
       </div>
 
       <div class="input-group">
         <label for="scale">Scale:</label>
-        <input type="number" name="scale" id="scale" v-model="renderer.scale" step="0.1">
+        <input type="number" name="scale" id="scale"
+               v-model="controller.scale"
+               v-bind:step="controller.step">
       </div>
 
       <div class="input-group">
         <label for="iterations">Iterations:</label>
-        <input type="number" name="iterations" id="iterations" v-model="renderer.iterations" step="10">
+        <input type="number" name="iterations" id="iterations"
+               v-model="controller.iterations"
+               step="10">
       </div>
     </div>
   </body>

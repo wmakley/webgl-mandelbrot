@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "awesome-typescript-loader": "^5.2.1",
+    "numeral": "^2.0.6",
     "typescript": "^3.7.2",
     "vue": "^2.6.10",
     "webpack": "^4.41.2",

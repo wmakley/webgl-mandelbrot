@@ -22,60 +22,30 @@ export default class Renderer {
   private scaleUniform: WebGLUniformLocation;
   private iterUniform: WebGLUniformLocation;
 
+  public readonly initialTranslateX = -0.75;
+  public readonly initialTranslateY = 0.0;
+  public readonly initialScale = 1.0;
+  public readonly initialIterations = 50;
+
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl;
-    this._translateX = -0.75;
-    this._translateY = 0;
-    this._scale = 1.0;
-    this._iterations = 50;
+    this._translateX = this.initialTranslateX;
+    this._translateY = this.initialTranslateY;
+    this._scale = this.initialScale;
+    this._iterations = this.initialIterations;
   }
 
   public get translateX() { return this._translateX; }
-  public set translateX(input: number | string) {
-    this._translateX = this.parseUserInput(input);
-    this.gl.uniform2f(this.translateUniform, this._translateX, this._translateY);
-    this.render();
-  }
+  public set translateX(input: number) { this._translateX = input; }
 
   public get translateY() { return this._translateY; }
-  public set translateY(input: number | string) {
-    this._translateY = this.parseUserInput(input);
-    this.gl.uniform2f(this.translateUniform, this._translateX, this._translateY);
-    this.render();
-  }
+  public set translateY(input: number) { this._translateY = input; }
 
   public get scale() { return this._scale; }
-  public set scale(input: string | number) {
-    this._scale = this.parseUserInput(input);
-    this.gl.uniform1f(this.scaleUniform, this._scale);
-    this.render();
-  }
+  public set scale(input: number) { this._scale = input; }
 
   public get iterations() { return this._iterations; }
-  public set iterations(input: string | number) {
-    if (typeof input === "string") {
-      input = parseInt(input, 10);
-      if (isNaN(input)) {
-        input = 1;
-      }
-    } else {
-      input = Math.ceil(input);
-    }
-    this._iterations = input;
-
-    this.gl.uniform1i(this.iterUniform, this._iterations);
-    this.render();
-  }
-
-  private parseUserInput(input: number | string): number {
-    if (typeof input === "string") {
-      input = parseFloat(input);
-      if (isNaN(input)) {
-        input = 1;
-      }
-    }
-    return input;
-  }
+  public set iterations(input: number) { this._iterations = input; }
 
   public init(): void {
     const gl = this.gl;
@@ -136,6 +106,12 @@ export default class Renderer {
 
   public render(): void {
     const gl = this.gl;
+
+    gl.uniform2f(this.screenSizeUniform, gl.canvas.width, gl.canvas.height);
+    gl.uniform2f(this.translateUniform, this._translateX, this._translateY);
+    gl.uniform1f(this.scaleUniform, this._scale);
+    gl.uniform1i(this.iterUniform, this._iterations);
+
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
