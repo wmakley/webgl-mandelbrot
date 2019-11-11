@@ -41,11 +41,45 @@ class AppController {
   private readonly renderer: Renderer;
   private readonly window: Window;
 
+  private static PARAMS = [
+    'translateX',
+    'translateY',
+    'scale',
+    'iterations'
+  ];
+
   constructor(renderer: Renderer, window: Window) {
     this.renderer = renderer;
     this.window = window;
 
     // Parse query string and set renderer attributes
+    const query = window.location.search.substring(1);
+    const vars = query.split('&');
+    for (let i = 0; i < vars.length; i++) {
+      const pair = vars[i].split('=');
+      if (pair.length !== 2) {
+        continue;
+      }
+
+      const key = decodeURIComponent(pair[0]);
+      const value = decodeURIComponent(pair[1]);
+      if (!(key && value)) {
+        continue;
+      }
+
+      if (!AppController.PARAMS.includes(key)) {
+        continue;
+      }
+
+      const floatValue = parseFloat(value);
+
+      if (isNaN(floatValue)) {
+        continue;
+      }
+
+      (renderer as any)[key] = floatValue;
+    }
+
     renderer.init();
     renderer.render();
   }
@@ -103,11 +137,9 @@ class AppController {
 
 
   private updateQueryString(): void {
-    const queryString =
-      "x=" + encodeURIComponent(this.translateX) +
-      "&y=" + encodeURIComponent(this.translateY) +
-      "&scale=" + encodeURIComponent(this.scale) +
-      "&iterations=" + encodeURIComponent(this.iterations);
+    const queryString = AppController.PARAMS.map((name) => {
+      return encodeURIComponent(name) + "=" + encodeURIComponent((this as any)[name]);
+    }).join("&");
 
     let baseUrl;
     if (window.location.href.includes("?")) {

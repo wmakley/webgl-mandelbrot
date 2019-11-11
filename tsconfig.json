@@ -4,7 +4,15 @@
     "removeComments": true,
     "noEmit": true,
     "allowJs": true,
-    "target": "es6"
+    // We are targeting browsers with very good WebGL support, so ES 6 is fine.
+    "target": "es6",
+    "noImplicitReturns": true,
+
+    // Vue recommendations https://vuejs.org/v2/guide/typescript.html
+    "strict": true,
+    // if using webpack 2+ or rollup, to leverage tree shaking:
+    "module": "es2015",
+    "moduleResolution": "node"
   },
   "include": [
     "src/**/*"

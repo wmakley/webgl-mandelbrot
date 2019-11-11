@@ -43,10 +43,24 @@ export default class Renderer {
   public set translateY(input: number) { this._translateY = input; }
 
   public get scale() { return this._scale; }
-  public set scale(input: number) { this._scale = input; }
+  public set scale(input: number) {
+    if (input > 1000) {
+      input = 1000;
+    } else if (input < 0) {
+      input = this.initialScale;
+    }
+    this._scale = input;
+  }
 
   public get iterations() { return this._iterations; }
-  public set iterations(input: number) { this._iterations = input; }
+  public set iterations(input: number) {
+    if (input <= 0) {
+      input = 1;
+    } else if (input > 10000) {
+      input = 10000;
+    }
+    this._iterations = input;
+  }
 
   public init(): void {
     const gl = this.gl;
