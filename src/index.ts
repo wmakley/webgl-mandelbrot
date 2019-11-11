@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // console.log("screenWidth", screenWidth, "canvasWidth", canvas.width);
   if ( canvas.width > screenWidth ) {
     canvas.width = screenWidth;
+    canvas.height = Math.round((screenWidth / 4) * 3);
   }
 
   // Enable retina support
