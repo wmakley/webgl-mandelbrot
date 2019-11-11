@@ -1,15 +1,16 @@
 import Shader from './Shader';
 
 export default class ShaderProgram {
-  private shaders: Array<Shader>;
-  public program: WebGLProgram;
+  public program: WebGLProgram | null;
   public isLinked: boolean;
+  private readonly shaders: Array<Shader>;
   private readonly gl: WebGLRenderingContext;
 
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl;
     this.shaders = [];
     this.isLinked = false;
+    this.program = null;
   }
 
   addShader(name: string, source: string, shaderType: number): void {
@@ -24,9 +25,14 @@ export default class ShaderProgram {
     if (this.isLinked) { return true; }
 
     this.program = this.gl.createProgram();
-    for (let i = 0; i < this.shaders.length; i += 1) {
-      const shader = this.shaders[i];
-      this.gl.attachShader(this.program, shader.handle);
+    if (this.program === null) {
+      throw new Error("Failed to create shader program!");
+    }
+
+    for (let shader of this.shaders) {
+      if (shader.handle) {
+        this.gl.attachShader(this.program, shader.handle);
+      }
     }
 
     this.gl.linkProgram(this.program);
@@ -47,10 +53,24 @@ export default class ShaderProgram {
   }
 
   getAttribLocation(name: string): number {
-    return this.gl.getAttribLocation(this.program, name);
+    if (!this.program || !this.isLinked) {
+      throw new Error("Program has been compiled and linked");
+    }
+    const location = this.gl.getAttribLocation(this.program, name);
+    if (location < 0) {
+      throw new Error(`Could not find attribute '${name}'`);
+    }
+    return location;
   }
 
   getUniformLocation(name: string): WebGLUniformLocation {
-    return this.gl.getUniformLocation(this.program, name);
+    if (!this.program || !this.isLinked) {
+      throw new Error("Program has been compiled and linked");
+    }
+    const location = this.gl.getUniformLocation(this.program, name);
+    if (!location) {
+      throw new Error(`Could not find uniform '${name}'!`);
+    }
+    return location;
   }
 }

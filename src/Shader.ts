@@ -2,7 +2,7 @@ export default class Shader {
   private readonly name: string
   private readonly source: string;
   private readonly shaderType: number;
-  public handle?: WebGLShader;
+  public handle: WebGLShader | null;
   isCompiled: boolean;
 
   constructor(name: string, source: string, shaderType: number) {
@@ -10,6 +10,7 @@ export default class Shader {
     this.source = source;
     this.shaderType = shaderType;
     this.isCompiled = false;
+    this.handle = null;
   }
 
   compile(gl: WebGLRenderingContext): boolean {
@@ -18,6 +19,11 @@ export default class Shader {
     }
 
     this.handle = gl.createShader(this.shaderType);
+    if (!this.handle) {
+      console.log(`failed to create shader ${this.name}; couldn't get handle`);
+      return false;
+    }
+
     gl.shaderSource(this.handle, this.source);
     gl.compileShader(this.handle);
     const success = gl.getShaderParameter(this.handle, gl.COMPILE_STATUS);
@@ -29,7 +35,7 @@ export default class Shader {
         gl.getShaderInfoLog(this.handle)
       );
       gl.deleteShader(this.handle);
-      this.handle = undefined;
+      this.handle = null;
     }
     return success;
   }

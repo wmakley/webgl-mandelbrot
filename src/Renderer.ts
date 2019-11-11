@@ -16,11 +16,11 @@ export default class Renderer {
   private _scale: number;
   private _iterations: number;
 
-  private graphSizeUniform: WebGLUniformLocation;
-  private screenSizeUniform: WebGLUniformLocation;
-  private translateUniform: WebGLUniformLocation;
-  private scaleUniform: WebGLUniformLocation;
-  private iterUniform: WebGLUniformLocation;
+  private graphSizeUniform?: WebGLUniformLocation | null;
+  private screenSizeUniform?: WebGLUniformLocation | null;
+  private translateUniform?: WebGLUniformLocation | null;
+  private scaleUniform?: WebGLUniformLocation | null;
+  private iterUniform?: WebGLUniformLocation | null;
 
   public readonly initialTranslateX = -0.75;
   public readonly initialTranslateY = 0.0;
@@ -29,6 +29,7 @@ export default class Renderer {
 
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl;
+
     this._translateX = this.initialTranslateX;
     this._translateY = this.initialTranslateY;
     this._scale = this.initialScale;
@@ -105,6 +106,11 @@ export default class Renderer {
   }
 
   public render(): void {
+    // Make the type system happy
+    if (!(this.screenSizeUniform && this.translateUniform && this.scaleUniform && this.iterUniform)) {
+      throw new Error("WebGL context not initialized!");
+    }
+
     const gl = this.gl;
 
     gl.uniform2f(this.screenSizeUniform, gl.canvas.width, gl.canvas.height);

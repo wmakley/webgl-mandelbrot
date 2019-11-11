@@ -22,15 +22,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   const renderer = new Renderer(gl);
-  renderer.init();
-  renderer.render();
-
   const controller = new AppController(renderer, window);
-  canvas.addEventListener('click', (event: MouseEvent) => {
-    controller.onCanvasClicked(event);
-  });
 
-  new Vue({
+  canvas.addEventListener('click', controller.onCanvasClicked.bind(controller));
+
+  (window as any).VueApp = new Vue({
     el: '#controls',
     data: {
       controller: controller
@@ -48,6 +44,10 @@ class AppController {
   constructor(renderer: Renderer, window: Window) {
     this.renderer = renderer;
     this.window = window;
+
+    // Parse query string and set renderer attributes
+    renderer.init();
+    renderer.render();
   }
 
 
@@ -70,21 +70,25 @@ class AppController {
 
   public set translateX(input: string) {
     this.renderer.translateX = this.parseUserFloat(input, this.renderer.initialTranslateX);
+    this.updateQueryString();
     this.renderer.render();
   }
 
   public set translateY(input: string) {
     this.renderer.translateY = this.parseUserFloat(input, this.renderer.initialTranslateY);
+    this.updateQueryString();
     this.renderer.render();
   }
 
   public set scale(input: string) {
     this.renderer.scale = this.parseUserFloat(input, this.renderer.initialScale);
+    this.updateQueryString();
     this.renderer.render();
   }
 
   public set iterations(input: string) {
     this.renderer.iterations = this.parseUserInt(input, this.renderer.initialIterations);
+    this.updateQueryString();
     this.renderer.render();
   }
 
@@ -94,9 +98,27 @@ class AppController {
 
 
   public onCanvasClicked(event: MouseEvent) {
-    console.log("canvas clicked");
+    console.log(event.clientX, event.clientY);
   }
 
+
+  private updateQueryString(): void {
+    const queryString =
+      "x=" + encodeURIComponent(this.translateX) +
+      "&y=" + encodeURIComponent(this.translateY) +
+      "&scale=" + encodeURIComponent(this.scale) +
+      "&iterations=" + encodeURIComponent(this.iterations);
+
+    let baseUrl;
+    if (window.location.href.includes("?")) {
+      baseUrl = window.location.href.split("?")[0];
+    } else {
+      baseUrl = window.location.href;
+    }
+
+    const finalUrl = baseUrl + "?" + queryString;
+    window.history.pushState({}, '', finalUrl);
+  }
 
   private parseUserFloat(input: string, onError: number): number {
     let parsed = parseFloat(input);
