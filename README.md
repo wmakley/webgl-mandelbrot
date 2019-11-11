@@ -2,7 +2,7 @@
 
 Simple WebGL [Mandelbrot Set](https://en.wikipedia.org/wiki/Mandelbrot_set) Viewer.
 
-[View Demo](https://jovial-poitras-007053.netlify.com)
+[View Demo](https://webgl-mandelbrot-viewer.netlify.com)
 
 Features:
 
