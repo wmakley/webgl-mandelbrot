@@ -135,4 +135,11 @@ export default class Renderer {
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
+
+  public reset(): void {
+    this._translateX = this.initialTranslateX;
+    this._translateY = this.initialTranslateY;
+    this._scale = this.initialScale;
+    this._iterations = this.initialIterations;
+  }
 }

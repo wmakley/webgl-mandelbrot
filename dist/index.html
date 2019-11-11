@@ -52,8 +52,8 @@
       }
     </style>
 
-    <script src="bundle.js"></script>
-    <script>
+    <script defer src="bundle.js"></script>
+    <script defer>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/service-worker.js')
@@ -68,17 +68,29 @@
     <canvas id="canvas" width="640" height="480"></canvas>
     <div id="controls">
       <div class="input-group">
-        <label for="zoomX">Zoom X:</label>
-        <input type="number" name="zoomX" id="zoomX"
+        <label for="translateX">Zoom X:</label>
+        <input type="number" name="translateX" id="translateX"
                v-model="controller.translateX"
                v-bind:step="controller.step">
+        <button type="button" v-on:click="controller.decrement('translateX')">
+          -
+        </button>
+        <button type="button" v-on:click="controller.increment('translateX')">
+          +
+        </button>
       </div>
 
       <div class="input-group">
-        <label for="zoomY">Zoom Y:</label>
-        <input type="number" name="zoomY" id="zoomY"
+        <label for="translateY">Zoom Y:</label>
+        <input type="number" name="translateY" id="translateY"
                v-model="controller.translateY"
                v-bind:step="controller.step">
+        <button type="button" v-on:click="controller.decrement('translateY')">
+          -
+        </button>
+        <button type="button" v-on:click="controller.increment('translateY')">
+          +
+        </button>
       </div>
 
       <div class="input-group">
@@ -86,6 +98,12 @@
         <input type="number" name="scale" id="scale"
                v-model="controller.scale"
                v-bind:step="controller.step">
+        <button type="button" v-on:click="controller.increment('scale')">
+          -
+        </button>
+        <button type="button" v-on:click="controller.decrement('scale')">
+          +
+        </button>
       </div>
 
       <div class="input-group">
@@ -94,7 +112,20 @@
                v-model="controller.iterations"
                min="1"
                max="10000"
-               step="10">
+               v-bind:step="controller.iterationsStep">
+        <button type="button" v-on:click="controller.decrementIterations()">
+          -
+        </button>
+        <button type="button" v-on:click="controller.incrementIterations()">
+          +
+        </button>
+      </div>
+
+      <div class="input-group">
+        <button type="button" class="reset" id="resetButton"
+                v-on:click="controller.reset()">
+          Reset
+        </button>
       </div>
     </div>
   </body>
