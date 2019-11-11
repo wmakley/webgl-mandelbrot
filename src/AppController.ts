@@ -20,6 +20,8 @@ export default class AppController {
     this.renderer = renderer;
     this.window = window;
 
+    const internalNames = Object.values(AppController.PARAMS);
+
     // Parse query string and set renderer attributes
     const query = window.location.search.substring(1);
     const vars = query.split('&');
@@ -35,11 +37,12 @@ export default class AppController {
         continue;
       }
 
-      if (!(key in AppController.PARAMS)) {
+      if (!(key in AppController.PARAMS || internalNames.includes(key))) {
+        console.log("WARNING: Unrecognized query parameter: " + key);
         continue;
       }
 
-      const internalKey = AppController.PARAMS[key];
+      const internalKey = AppController.PARAMS[key] || key;
 
       if (!internalKey) {
         continue;
