@@ -14,6 +14,15 @@ document.addEventListener('DOMContentLoaded', function () {
     throw new Error(msg);
   }
 
+  // Shrink renderer to match screen width on mobile devices
+  const screenWidth  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  // const screenHeight = window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;
+
+  // console.log("screenWidth", screenWidth, "canvasWidth", canvas.width);
+  if ( canvas.width > screenWidth ) {
+    canvas.width = screenWidth;
+  }
+
   // Enable retina support
   if (typeof window.devicePixelRatio === 'number') {
     canvas.style.width = canvas.width.toString() + 'px';
